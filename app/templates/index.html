@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ app_name }}</h1>
+            <p class="subtitle">YouTube/音楽ファイルからボーカルを抽出</p>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="upload">ファイルアップロード</button>
+                <button class="tab-btn" data-tab="youtube">YouTube URL</button>
+            </div>
+
+            <!-- File Upload Tab -->
+            <div id="upload-tab" class="tab-content active">
+                <div class="upload-area" id="drop-zone">
+                    <div class="upload-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <p>ファイルをドラッグ&ドロップ</p>
+                    <p class="small">または</p>
+                    <label class="file-select-btn">
+                        ファイルを選択
+                        <input type="file" id="file-input" accept=".mp3,.wav,.m4a,.flac" hidden>
+                    </label>
+                    <p class="file-info">対応形式: {{ supported_formats | join(', ') }} / 最大 {{ max_file_size_mb }}MB</p>
+                </div>
+            </div>
+
+            <!-- YouTube Tab -->
+            <div id="youtube-tab" class="tab-content">
+                <div class="youtube-form">
+                    <label for="youtube-url">YouTube URL</label>
+                    <div class="input-group">
+                        <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=...">
+                        <button id="youtube-submit" class="btn-primary">抽出開始</button>
+                    </div>
+                    <p class="input-hint">YouTube動画のURLを入力してください</p>
+                </div>
+            </div>
+
+            <!-- Processing Status -->
+            <div id="processing-section" class="hidden">
+                <div class="processing-card">
+                    <h3 id="processing-title">処理中...</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">0%</span>
+                    </div>
+                    <p class="status-message" id="status-message">準備中...</p>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result-section" class="hidden">
+                <div class="result-card">
+                    <h3>抽出完了</h3>
+                    <div class="audio-player-container">
+                        <p class="player-label">プレビュー (30秒)</p>
+                        <audio id="audio-preview" controls></audio>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="download-btn" class="btn-primary btn-large">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            ダウンロード (WAV)
+                        </button>
+                        <button id="new-extract-btn" class="btn-secondary">新しい抽出</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Section -->
+            <div id="error-section" class="hidden">
+                <div class="error-card">
+                    <h3>エラー</h3>
+                    <p id="error-message"></p>
+                    <button id="retry-btn" class="btn-secondary">再試行</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Spleeter</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
