@@ -13,9 +13,9 @@ soundfile==0.12.1
 
 # AI Source Separation
 demucs>=4.0.0
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch>=2.0.0
 torchaudio>=2.0.0
-torchcodec>=0.1.0
 
 # YouTube Download
 yt-dlp>=2024.1.0
