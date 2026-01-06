@@ -15,6 +15,7 @@ soundfile==0.12.1
 demucs>=4.0.0
 torch>=2.0.0
 torchaudio>=2.0.0
+torchcodec>=0.1.0
 
 # YouTube Download
 yt-dlp>=2024.1.0
